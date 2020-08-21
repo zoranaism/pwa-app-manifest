@@ -1,3 +1,5 @@
+var deferredPrompt;
+
 if ("serviceWorker" in navigator) {
   // navigator is the browser
   navigator.serviceWorker
@@ -6,3 +8,10 @@ if ("serviceWorker" in navigator) {
         console.log('Service worker registered!');
      });
 }
+
+window.addEventListener("beforeinstallprompt", function(event) {
+  console.log("before install prompt fired");
+  event.preventDefault(); 
+  deferredPrompt = event;
+  return false;
+})

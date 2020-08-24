@@ -1,18 +1,33 @@
-// should be encripted
+self.addEventListener("install", function (event) {
+  console.log("[Service Worker] Installing Service Worker ...", event);
+  event.waitUntil(
+    caches
+      .open("static")
+      .then(function (cache) {
+        console.log("[Service Worker] Precaching App Shell");
+        // return cache.add("/src/js/app.js");
 
-//triggered by the browser
-self.addEventListener('install', function(event) {
-    console.log('[Service worker] Installing service worker...', event);
+        return cache.addAll(["/src/js/app.js", "index.html"]);
+      })
+      .then(function () {
+        console.log("[Service Worker]: install completed");
+      })
+  );
 });
 
-self.addEventListener('activate', function(event) {
-    console.log('[Service worker] Activating service worker...', event);
-    return self.clients.claim();
+self.addEventListener("activate", function (event) {
+  console.log("[Service Worker] Activating Service Worker ....", event);
+  return self.clients.claim();
 });
 
-// triggered by every fetch, image, css, js all imported filles in index.html
-self.addEventListener('fetch', function(event) {
-    console.log('[Service worker] Fetching something...', event);
-    event.respondWith(fetch(event.request));
-
-})
+self.addEventListener("fetch", function (event) {
+  event.respondWith(
+    caches.match(event.request).then(function (response) {
+      if (response) {
+        return response;
+      } else {
+        return fetch(event.request)
+      }
+    })
+  );
+});

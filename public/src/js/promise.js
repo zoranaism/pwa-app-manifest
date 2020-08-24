@@ -1,6 +1,6 @@
 /**
  * setImmediate polyfill v1.0.1, supports IE9+
- * Â© 2014â€“2015 Dmitry Korobkin
+ * © 2014–2015 Dmitry Korobkin
  * Released under the MIT license
  * github.com/Octane/setImmediate
  */
@@ -64,7 +64,7 @@ window.setImmediate || function () {'use strict';
  * Promise polyfill v1.0.10
  * requires setImmediate
  *
- * Â© 2014â€“2015 Dmitry Korobkin
+ * © 2014–2015 Dmitry Korobkin
  * Released under the MIT license
  * github.com/Octane/Promise
  */
@@ -97,7 +97,7 @@ window.setImmediate || function () {'use strict';
   }
 
   function isObject(anything) {
-    //Object.create(null) instanceof Object â†’ false
+    //Object.create(null) instanceof Object → false
     return Object(anything) === anything;
   }
 
@@ -350,7 +350,7 @@ window.setImmediate || function () {'use strict';
           } else if (isInternalError(anything)) {
             reject(anything[ORIGINAL_ERROR]);
           } else {
-            //[1, , 3] â†’ [1, undefined, 3]
+            //[1, , 3] → [1, undefined, 3]
             values[i] = value;
           }
         }
